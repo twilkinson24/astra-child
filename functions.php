@@ -27,3 +27,8 @@ add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
 
 
 /* Custom  Below */
+function rx_new_excerpt_read_more($more) {
+	global $post;
+	return '<a class="rx-read-more" href="'. get_permalink($post->ID) . '">Meet ' . get_the_title($post->ID) . '</a>';
+}
+add_filter('excerpt_more', 'rx_new_excerpt_read_more');
