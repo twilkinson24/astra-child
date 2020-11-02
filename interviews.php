@@ -20,54 +20,53 @@ get_header(); ?>
 
 	<div id="primary" <?php astra_primary_class(); ?>>
 
-    <?php
+            <div class="posts-wrapper">
 
-    $paged_rx = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-            $args_interviews = array(
-                'post_type' => 'post',
-                'post__not_in' => array ($ft_post_id),
-                'posts_per_page' => 1,
-                'paged' => $paged_rx
-            );
-            $rx_posts_query = new WP_Query( $args_interviews );
+            <?php
 
-        ?>
+                if ( !is_paged() ) :
+                    $args_first_ft_post = array(
+                        'cat'               => 3, // features
+                        'post_type'         => 'post',
+                        'posts_per_page'    => 1
+                    );
+
+                    $rx_ft_post_query = new WP_Query( $args_first_ft_post );
+
+                    if($rx_ft_post_query->have_posts()) : 
+                        while($rx_ft_post_query->have_posts()) :
+                            $rx_ft_post_query->the_post();
+
+                            // needed later to exclude from next query
+                            $ft_post_id =  get_the_ID();
+                    ?>
+
+                        <article>
+                            <h2 class="entry-title"><?php the_title(); ?></h2>
+                            <p class="rx-post-date"><time><?php the_date(); ?></time></p>
+                            <?php if(has_post_thumbnail()) { 
+                                the_post_thumbnail('medium_large');
+                            } ?>
+                            <p class="rx-post-excerpt"><?php the_excerpt(); ?>
+                        </article>
+
+                        <?php endwhile; 
+                        wp_reset_postdata(); 
+                    endif; 
+                endif; 
+
+            ?>
 
         <?php
-
-
-            if ( !is_paged() ) :
-                $args_first_ft_post = array(
-                    'cat'               => 3, // features
-                    'post_type'         => 'post',
-                    'posts_per_page'    => 1
-                );
-
-                $rx_ft_post_query = new WP_Query( $args_first_ft_post );
-
-                if($rx_ft_post_query->have_posts()) : 
-                    while($rx_ft_post_query->have_posts()) :
-                        $rx_ft_post_query->the_post();
-
-                        // needed later to exclude from next query
-                        $ft_post_id =  get_the_ID();
-                ?>
-
-                    <article>
-                        <h2 class="entry-title"><?php the_title(); ?></h2>
-                        <p class="rx-post-date"><time><?php the_date(); ?></time></p>
-                        <?php if(has_post_thumbnail()) { 
-                            the_post_thumbnail('medium_large');
-                        } ?>
-                        <p class="rx-post-excerpt"><?php the_excerpt(); ?>
-                    </article>
-
-                    <?php endwhile; 
-                    wp_reset_postdata(); 
-                endif; 
-            endif; ?>
-
-		<?php
+        
+        $paged_rx = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+        $args_interviews = array(
+            'post_type' => 'post',
+            'post__not_in' => array ($ft_post_id),
+            'posts_per_page' => 11,
+            'paged' => $paged_rx
+        );
+        $rx_posts_query = new WP_Query( $args_interviews );
 
             if($rx_posts_query->have_posts()) : 
                 while($rx_posts_query->have_posts()) :
@@ -100,6 +99,8 @@ get_header(); ?>
 
         <?php wp_reset_postdata(); 
         endif; ?>
+
+    </div><!-- end .posts-wrapper -->
 
 
 	</div><!-- #primary -->
