@@ -11,6 +11,26 @@ Template: astra
 */
 
 /* Custom CSS Below */
+
+/* Global */
+a .entry-title:hover {
+	color: #1e73be;
+	transition: all 200ms ease;
+}
+/* end Global */
+
+/* Header */
+.main-header-bar .main-header-container  {
+    position: relative;
+}
+.main-header-bar .main-header-container .site-branding {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* end Header */
+
+/* Interviews Archive */
 .page-template-interviews .posts-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -20,3 +40,34 @@ Template: astra
     width: 50%;
     padding: 60px;
 }
+.page-template-interviews .entry-title {
+	font-weight: 700;	
+}
+.rx-post-date {
+	color: #595959;
+    font-size: .9rem;
+    margin: 0;
+}
+.rx-ft-img-wrap {
+    display: block;
+    margin: 2.125rem 0;
+}
+.rx-post-excerpt {
+    margin-bottom: 2.125rem;
+}
+.rx-read-more {
+    background: #000;
+    color: #fff;
+    display: inline-block;
+    font-size: 0.875rem;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    transition: all 100ms ease-in-out;
+}
+.rx-read-more:active,
+.rx-read-more:focus,
+.rx-read-more:hover {
+    background: #1e73be;
+    color: #fff;
+}
+/* end Interviews Archive */
