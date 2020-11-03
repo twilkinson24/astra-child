@@ -70,4 +70,21 @@ a .entry-title:hover {
     background: #1e73be;
     color: #fff;
 }
+.page-template-interviews article footer {
+    margin: 2.125rem 0 0 0;
+}
+.rx-cats,
+.rx-tags {
+    margin: 0;
+}
+.rx-cats a,
+.rx-tags a {
+    color: #595959;
+}
+.rx-cats a:hover,
+.rx-tags a:hover {
+    color: #1e73be;
+}
+
+
 /* end Interviews Archive */

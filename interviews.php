@@ -120,6 +120,9 @@ get_header(); ?>
                     <footer>
                         <p class="rx-cats">
                             <?php echo get_the_category_list(', '); ?>
+                        </p>
+                        <p class="rx-tags">
+                            <?php echo get_the_tag_list(); ?>
                         <p>
                     </footer>
                 </article>
