@@ -28,7 +28,35 @@ a .entry-title:hover {
     left: 50%;
     transform: translateX(-50%);
 }
+.main-header-bar .menu-item a {
+    font-weight: bold;
+}
+.main-header-menu .menu-item:hover > .menu-link,
+.main-header-bar .menu-item:hover a,
+.main-header-bar .menu-item a:hover {
+    color: #595959;
+}
 /* end Header */
+
+/* Hero */
+.cta-button a,
+.cta-button a.wp-block-button__link {
+    font-size: 14px;
+    line-height: 26px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+.cta-button a:hover,
+.cta-button a .wp-block-button__link:hover {
+    background: #1e73be !important;
+    transition: all 200ms ease;
+}
+.hero-cta-text {
+    font-size: 50px;
+    max-width: 700px;
+    margin: -65px auto 20px auto;
+}
+/* end Hero */
 
 /* Interviews Archive */
 .page-template-interviews .posts-wrapper {
@@ -73,9 +101,21 @@ a .entry-title:hover {
 .page-template-interviews article footer {
     margin: 2.125rem 0 0 0;
 }
+
 .rx-cats,
 .rx-tags {
     margin: 0;
+    padding-left: 30px;
+}
+.rx-cats {
+    background: url('./assets/icons/folder-plain.svg') no-repeat;
+    background-size: 20px 20px;
+    background-position: 0 4px;
+}
+.rx-tags {
+    background: url('./assets/icons/tag-plain.png') no-repeat;
+    background-size: 20px 20px;
+    background-position: 0 4px;
 }
 .rx-cats a,
 .rx-tags a {
@@ -85,6 +125,9 @@ a .entry-title:hover {
 .rx-tags a:hover {
     color: #1e73be;
 }
-
-
 /* end Interviews Archive */
+
+/* Single Post */
+.page-header {
+    background: #f7f7f7;
+}

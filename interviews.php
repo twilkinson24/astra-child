@@ -121,9 +121,9 @@ get_header(); ?>
                         <p class="rx-cats">
                             <?php echo get_the_category_list(', '); ?>
                         </p>
-                        <p class="rx-tags">
-                            <?php echo get_the_tag_list(); ?>
-                        <p>
+                        <?php 
+                            echo get_the_tag_list( sprintf( '<p class="rx-tags"> ', __( 'Tags', 'textdomain' ) ), ', ', '</p>' );
+                        ?>
                     </footer>
                 </article>
             
