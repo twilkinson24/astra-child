@@ -54,7 +54,7 @@ get_header(); ?>
                                 <p class="rx-post-date"><time><?php echo get_the_date(); ?></time></p>
                             </header>
                             <?php if(has_post_thumbnail()) : ?>
-                                <a href="<?php the_permalink(); ?>">
+                                <a href="<?php the_permalink(); ?>" class="rx-ft-img-wrap">
                                     <?php the_post_thumbnail('medium_large'); ?>
                                 </a>
                             <?php endif; ?>

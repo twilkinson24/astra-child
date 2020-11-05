@@ -59,15 +59,18 @@ a .entry-title:hover {
 /* end Hero */
 
 /* Interviews Archive */
+.archive .posts-wrapper,
 .page-template-interviews .posts-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
+.archive .posts-wrapper article,
 .page-template-interviews .posts-wrapper article {
     width: 50%;
     padding: 60px;
 }
+.archive .posts-wrapper .entry-title,
 .page-template-interviews .entry-title {
 	font-weight: 700;	
 }
@@ -98,6 +101,7 @@ a .entry-title:hover {
     background: #1e73be;
     color: #fff;
 }
+.archive article footer,
 .page-template-interviews article footer {
     margin: 2.125rem 0 0 0;
 }
@@ -130,4 +134,18 @@ a .entry-title:hover {
 /* Single Post */
 .page-header {
     background: #f7f7f7;
+}
+
+
+/* Archive Page */
+.archive .ast-archive-description {
+    border: none;
+    padding-left: 60px;
+}
+.archive .page-title {
+    color: #000;
+    font-weight: bold;
+}
+.archive article .entry-title {
+    font-size: 1.875rem;
 }
