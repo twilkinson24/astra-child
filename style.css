@@ -134,6 +134,12 @@ a .entry-title:hover {
 /* Single Post */
 .page-header {
     background: #f7f7f7;
+    padding: 100px 0 5px 0;
+    text-align: center;
+}
+.page-header h1 { 
+    font-size: 50px;
+    margin-bottom: 20px;
 }
 
 
@@ -148,4 +154,27 @@ a .entry-title:hover {
 }
 .archive article .entry-title {
     font-size: 1.875rem;
+}
+.ast-pagination .nav-links {
+    display: flex;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.ast-pagination .nav-links .page-numbers {
+    border: 1px solid #1e73be;
+    height: auto;
+    line-height: 1.4;
+    margin: 0 3px;
+    padding: 0 5px;
+    transition: all 200ms ease;
+    width: auto;
+}
+.ast-pagination .nav-links .page-numbers.current,
+.ast-pagination .nav-links .page-numbers:hover {
+    border: 1px solid #000;
+    color: #000;
+}
+.ast-pagination .nav-links .page-numbers.current {
+    font-weight: bold;
+    cursor: auto;
 }

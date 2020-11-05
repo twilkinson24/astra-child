@@ -29,7 +29,7 @@ get_header(); ?>
         $rx_post_date = get_the_date( 'F j, Y' ); 
 
         echo '<a href="' . $rx_author_link . '">' . $rx_author_name . '</a>';
-
+        echo " • ";
         echo $rx_post_date;
 
     ?>
