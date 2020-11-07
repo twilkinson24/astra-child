@@ -17,6 +17,10 @@ a .entry-title:hover {
 	color: #1e73be;
 	transition: all 200ms ease;
 }
+
+body .m-0 {
+    margin: 0;
+}
 /* end Global */
 
 /* Header */
@@ -177,4 +181,74 @@ a .entry-title:hover {
 .ast-pagination .nav-links .page-numbers.current {
     font-weight: bold;
     cursor: auto;
+}
+/* Single Post */
+.single .rx-cats,
+.single .rx-tags,
+.rx-next-post a,
+.rx-prev-post a {
+    color: #595959;
+    font-size: .9rem;
+    position: relative;
+}
+.rx-next-post a {
+    background: url('./assets/icons/chevron.svg');  
+    background-position: 4px 5px !important; 
+}
+.rx-prev-post a,
+.rx-next-post a {
+    padding-left: 30px;
+    background-size: 8px 8px;
+}
+.rx-prev-post a:hover,
+.rx-next-post a:hover {
+    color: #1e73be;
+}
+.rx-prev-post a::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    top: 4px;
+    left: 0;
+    z-index: -1;
+    background: url('./assets/icons/chevron.svg') no-repeat;
+    transform: rotate(180deg);
+}
+.single .rx-prev-post a,
+.single .rx-next-post a,
+.single .rx-tags,
+.single .rx-cats {
+    background-repeat: no-repeat;
+    background-position: 0 4px;
+}
+.single .rx-tags {
+    background-size: 12px 12px;
+}
+.single .rx-cats {
+    background-size: 15px 15px;
+}
+.single footer.article-footer {
+    padding-left: 110px;
+}
+.single footer.article-footer p {
+    line-height: 1.5;
+}
+
+.single .sidebar-main .widget {
+    background: #fafafa;
+    padding: 40px 50px;
+}
+
+body.ast-separate-container .ast-article-post, 
+body.ast-separate-container .ast-article-single {
+    padding: 40px 60px 60px 60px;
+}
+.ast-right-sidebar #primary {
+    width: 65%;
+}
+.ast-right-sidebar #secondary {
+    padding-left: 0;
+    width: 35%; 
 }

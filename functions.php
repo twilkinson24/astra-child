@@ -27,8 +27,15 @@ add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
 
 
 /* Custom  Below */
+// Change default excerpt
 function rx_new_excerpt_read_more($more) {
 	global $post;
 	return '<a class="rx-read-more" href="'. get_permalink($post->ID) . '">Meet ' . get_the_title($post->ID) . '</a>';
 }
 add_filter('excerpt_more', 'rx_new_excerpt_read_more');
+
+
+
+// Remove default Astra Prev/Next page from single posts
+add_filter( 'astra_single_post_navigation_enabled', '__return_false' );
+
