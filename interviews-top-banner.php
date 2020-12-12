@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Interviews Archive
+ * Template Name: Interviews Top Banner
  * description: >-
   Page template for the Interviews archive
  */
@@ -17,6 +17,20 @@ function word_count($string, $limit) {
 get_header(); ?>
 
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); 
+				if ( has_post_thumbnail() ) : ?>
+					</div> <!-- close container -->
+					<div class="fw-ft-img">
+						<div class="overlay">
+							<div class="title-wrap">
+								<h1>
+									<?php echo get_the_title(); ?>
+								</h1>
+							</div>
+						</div>
+						<?php the_post_thumbnail(); ?>	
+					</div>
+					<div class="ast-container"><!-- open container again -->
+				<?php endif; 
                 // normal page content
                 the_content();
             endwhile;
@@ -24,7 +38,7 @@ get_header(); ?>
     ?>
 
 	<div id="primary" <?php astra_primary_class(); ?>>
-         <div class="posts-wrapper">
+		<div class="posts-wrapper">
 
         <?php
         
@@ -32,7 +46,7 @@ get_header(); ?>
         $args_interviews = array(
             'post_type' => 'post',
             'post__not_in' => array ($ft_post_id),
-            'posts_per_page' => 11,
+            'posts_per_page' => 10,
             'paged' => $paged_rx
         );
         $rx_posts_query = new WP_Query( $args_interviews );
@@ -66,11 +80,10 @@ get_header(); ?>
                 </article>
             
             <?php endwhile; ?>
+			
     </div><!-- end .posts-wrapper -->
 			<nav class="pagination">
-
-            <?php
- 
+			<?php
                 $big = 999999999; // need an unlikely integer
                 $translated = __( 'Page', 'mytextdomain' ); // Supply translatable string
                 
@@ -81,12 +94,12 @@ get_header(); ?>
                     'total' => $rx_posts_query->max_num_pages,
                         'before_page_number' => '<span class="screen-reader-text">'.$translated.' </span>'
                 ) );
-            ?>
+            ?>	
 			</nav>
+            
 
         <?php wp_reset_postdata(); 
         endif; ?>
-
 
 	</div><!-- #primary -->
 

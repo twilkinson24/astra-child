@@ -15,36 +15,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header(); ?>
 
 </div> <!-- end .container -->
-<header class="page-header">
-    <h1><?php echo get_the_title(); ?></h1>
+<?php if(has_post_thumbnail()) : ?>
+	<div class="ft-img-wrap">
+		<?php the_post_thumbnail(); ?>		
+	</div>
+<?php endif; ?>
 
-    <!-- Add Interviewee's title -->
+<?php if ( class_exists('ACF') ) : ?>	
+	<?php 
+		$rx_contact_field = get_field('rx_contact_interviewee');
+		$rx_published_works = get_field('rx_published_works');
+	?>
+	<?php if($rx_contact_field || $rx_published_works) : ?>
 
-    <?php 
-        global $post;
-        $author_id = $post->post_author;
-
-        $rx_author_name = get_the_author_meta( 'nicename', $author_id );
-        $rx_author_nickname = get_the_author_meta( 'nickname', $author_id );
-        $rx_author_link = get_author_posts_url( $author_id );
-        $rx_post_date = get_the_date( 'F j, Y' ); 
-        // $rx_author_avatar = get_avatar(get_the_author_meta('ID')); 
-
-
-        echo '<a href="' . $rx_author_link . '">' . $rx_author_name . '</a>';
-        echo " • ";
-        echo $rx_post_date;
-
-    ?>
-</header>
-
-<div class="ast-container">
-
-<?php if ( astra_page_layout() == 'left-sidebar' ) : ?>
-
-	<?php get_sidebar(); ?>
-
-<?php endif ?>
+		<div class="ast-container <?php if($rx_contact_field || $rx_published_works) { echo 'custom-sidebar'; } ?>">	
+			
+	<?php else : ?>
+		<div class="ast-container">
+	<?php endif; ?>
+<?php endif; ?>
 
     <div id="primary" <?php astra_primary_class(); ?>>
 
@@ -52,33 +41,7 @@ get_header(); ?>
 
 		<?php astra_content_loop(); ?>
 
-        <footer class="article-footer">
-            <p class="rx-cats">
-                <?php echo get_the_category_list(', '); ?>
-            </p>
-            <?php 
-                echo get_the_tag_list( sprintf( '<p class="rx-tags"> ', __( 'Tags', 'textdomain' ) ), ', ', '</p>' );
-            ?>
-
-
-
-
-            <p class="rx-prev-post m-0">
-                <?php 
-                $rx_prev_post = get_previous_post();
-                if ( is_a( $rx_prev_post , 'WP_Post' ) ) : ?>
-                    <a href="<?php echo get_permalink( $rx_prev_post->ID ); ?>"><?php echo get_the_title( $rx_prev_post->ID ); ?></a>
-                <?php endif; ?>
-            </p>
-            <p class="rx-next-post m-0">
-                <?php 
-                $next_post = get_next_post();
-                if ( is_a( $next_post , 'WP_Post' ) ) : ?>
-                    <a href="<?php echo get_permalink( $next_post->ID ); ?>"><?php echo get_the_title( $next_post->ID ); ?></a>
-                <?php endif; ?>
-            </p>
-            
-        </footer>
+        
 
 		<?php astra_primary_content_bottom(); ?>
 
@@ -87,10 +50,27 @@ get_header(); ?>
 
 	</div><!-- #primary -->
 
-<?php if ( astra_page_layout() == 'right-sidebar' ) : ?>
-
-	<?php get_sidebar(); ?>
-
+<?php if ( class_exists('ACF') ) : ?>
+	
+	<?php if($rx_contact_field || $rx_published_works) : ?>
+		<div class="widget-area secondary" id="secondary">
+			<div class="sidebar-main custom">
+				<aside>
+					<?php if($rx_contact_field) : ?>
+						<div class="widget">
+							<?php echo $rx_contact_field; ?>
+						</div>
+					<?php endif; ?>
+					<?php if($rx_published_works) : ?>
+						<div class="widget">
+							<?php echo $rx_published_works; ?>
+						</div>
+					<?php endif; ?>
+				</aside>
+			</div>
+		</div>
+	<?php endif; ?>
+			
 <?php endif ?>
 
 <?php get_footer(); ?>
