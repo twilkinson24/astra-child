@@ -172,6 +172,45 @@ function Generate_Featured_Image( $image_url, $post_id  ){
 
 
 
+// NEW TEST
+function rx_create_attachment($filename, $postID)
+{
+    // Check the type of file. We'll use this as the 'post_mime_type'.
+    $filetype = wp_check_filetype(basename($filename), null);
+
+    // Get the path to the upload directory.
+    $wp_upload_dir = wp_upload_dir();
+
+    $attachFileName = $wp_upload_dir['path'] . '/' . basename($filename);
+    copy($filename, $attachFileName);
+    // Prepare an array of post data for the attachment.
+    $attachment = array(
+        'guid'           => $attachFileName,
+        'post_mime_type' => $filetype['type'],
+        'post_title'     => preg_replace('/\.[^.]+$/', '', basename($filename)),
+        'post_content'   => '',
+        'post_status'    => 'inherit'
+    );
+
+    // Insert the attachment.
+    $attach_id = wp_insert_attachment($attachment, $attachFileName);
+
+    // Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+    // Generate the metadata for the attachment, and update the database record.
+    $attach_data = wp_generate_attachment_metadata($attach_id, $attachFileName);
+	wp_update_attachment_metadata($attach_id, $attach_data);
+	
+	update_post_meta($postID, "_thumbnail_id", $attach_id);
+
+
+    return $attach_data;
+}
+
+
+
+
 
 // https://wordpress.stackexchange.com/questions/328429/how-to-save-contact-form-7-data-in-custom-post-types-cpt/328447
 // useful hooks - we need to submit 'before sent' for ft image
@@ -291,7 +330,7 @@ function save_my_form_data_to_my_cpt($contact_form){
 			foreach($uploaded_files as $result) {
 				$the_file = $result;
 			}
-			$rx_ft_img_path = home_url() . '/wp-content/uploads/' . date("Y") . '/' . date("m") . '/' . basename($the_file);
+
 		}
 		
     } else {
@@ -312,12 +351,14 @@ function save_my_form_data_to_my_cpt($contact_form){
         if($post_id = wp_insert_post($new_post)){
        //Everything worked, you can stop here or do whatever
        
-			if(isset($posted_data['your-headshot'])){ 
-				Generate_Featured_Image( $rx_ft_img_path, $post_id );
-			}
+			 if(isset($posted_data['your-headshot'])){ 
+
+				rx_create_attachment($the_file, $post_id);
+			 }
+
 			
 			
-					if(strlen($posted_data['linkedin-url']) > 0 || strlen($posted_data['twitter-url']) > 0 || strlen($posted_data['crunchbase-url']) > 0 || strlen($posted_data['instagram-url']) > 0 || strlen($posted_data['wikipedia-url']) > 0)  {
+			if(strlen($posted_data['linkedin-url']) > 0 || strlen($posted_data['twitter-url']) > 0 || strlen($posted_data['crunchbase-url']) > 0 || strlen($posted_data['instagram-url']) > 0 || strlen($posted_data['wikipedia-url']) > 0)  {
 
 				
 				$contact_interviewee_text .= '<h3 class="widget-title">Contact ' . $posted_data['interview-first-name'] . ' ' . $posted_data['interview-last-name'] . '</h3>';

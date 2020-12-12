@@ -29,6 +29,28 @@ get_header(); ?>
 
 	<div id="primary" <?php astra_primary_class(); ?>>
 
+	<?php 
+
+	if(is_user_logged_in()) {
+
+		echo 'logged in';
+		
+		$current_user_ID = get_current_user_id();
+
+
+	
+		update_user_meta( $current_user_ID, 'user_phone', '239-222-2222'); 
+
+		
+
+		$all_meta_for_user = get_user_meta( $current_user_ID );
+		print_r( $all_meta_for_user );
+
+		//https://wordpress.stackexchange.com/questions/216140/update-user-meta-using-with-ajax
+	  
+	}
+	?>
+
 		<?php astra_primary_content_top(); ?>
 
 		<?php astra_content_page_loop(); ?>
