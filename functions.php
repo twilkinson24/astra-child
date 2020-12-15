@@ -370,20 +370,59 @@ function rx_modifications_callback() {
 	 $user_id        = get_current_user_id();                            // Get our current user ID
 
 
-	 $rx_first_name_val         = sanitize_text_field( $_POST['rx_first_name'] );      
-	 $rx_last_name_val         = sanitize_text_field( $_POST['rx_last_name'] );      
-	 $rx_company_val         = sanitize_text_field( $_POST['rx_interview_company'] );   
-	 $biography_val         = sanitize_text_field( $_POST['rx_biography'] );      // Sanitize our user meta value
-
-
-
+	 $rx_first_name_val = sanitize_text_field( $_POST['rx_first_name'] );      
+	 $rx_last_name_val  = sanitize_text_field( $_POST['rx_last_name'] );      
+	 $rx_company_val    = sanitize_text_field( $_POST['rx_interview_company'] );
+	 $rx_user_email   = sanitize_text_field( $_POST['rx_user_email'] );  
+	 $rx_role         = sanitize_text_field( $_POST['rx_role'] ); 
+	 $rx_industry 	  = sanitize_text_field( $_POST['rx_industry'] ); 
+	 $rx_linked_in 	  = sanitize_text_field( $_POST['rx_linked_in'] ); 
+	 $rx_twitter  	  = sanitize_text_field( $_POST['rx_twitter'] ); 
+	 $rx_crunchbase   = sanitize_text_field( $_POST['rx_crunchbase'] ); 
+	 $rx_instagram    = sanitize_text_field( $_POST['rx_instagram'] ); 
+	 $rx_wikipedia    = sanitize_text_field( $_POST['rx_wikipedia'] ); 
+	 $rx_published_work_1  = sanitize_text_field( $_POST['rx_published_work_1'] ); 
+	 $rx_published_work_2  = sanitize_text_field( $_POST['rx_published_work_2'] ); 
+	 $rx_published_work_3  = sanitize_text_field( $_POST['rx_published_work_3'] );
+	 $rx_biography_val = sanitize_text_field( $_POST['rx_biography'] );      // Sanitize our user meta value 
+	 $rx_int_question_1  = sanitize_text_field( $_POST['rx_int_question_1'] ); 
+	 $rx_int_question_2  = sanitize_text_field( $_POST['rx_int_question_2'] ); 
+	 $rx_int_question_3  = sanitize_text_field( $_POST['rx_int_question_3'] ); 
+	 $rx_int_question_4  = sanitize_text_field( $_POST['rx_int_question_4'] ); 
+	 $rx_int_question_5  = sanitize_text_field( $_POST['rx_int_question_5'] ); 
+	 $rx_int_question_6  = sanitize_text_field( $_POST['rx_int_question_6'] ); 
+	 $rx_int_question_7  = sanitize_text_field( $_POST['rx_int_question_7'] ); 
+	 $rx_int_question_8  = sanitize_text_field( $_POST['rx_int_question_8'] ); 
+	 $rx_int_own_question  = sanitize_text_field( $_POST['rx_int_own_question'] ); 
+	 $rx_int_own_answer  = sanitize_text_field( $_POST['rx_int_own_answer'] ); 
+	
 
 	update_user_meta( $user_id, 'rx_first_name', $rx_first_name_val );                // Update our user meta
 	update_user_meta( $user_id, 'rx_last_name', $rx_last_name_val );                
 	update_user_meta( $user_id, 'rx_interview_company', $rx_company_val);                
-	update_user_meta( $user_id, 'biography', $biography_val );                
-
-
+	update_user_meta( $user_id, 'rx_user_email', $rx_user_email );
+	update_user_meta( $user_id, 'rx_role', $rx_role );
+	update_user_meta( $user_id, 'rx_industry', $rx_industry );
+	update_user_meta( $user_id, 'rx_linked_in', $rx_linked_in );
+	update_user_meta( $user_id, 'rx_twitter', $rx_twitter );
+	update_user_meta( $user_id, 'rx_crunchbase', $rx_crunchbase );
+	update_user_meta( $user_id, 'rx_instagram', $rx_instagram );
+	update_user_meta( $user_id, 'rx_wikipedia', $rx_wikipedia );
+	update_user_meta( $user_id, 'rx_published_work_1', $rx_published_work_1 );
+	update_user_meta( $user_id, 'rx_published_work_2', $rx_published_work_2 );
+	update_user_meta( $user_id, 'rx_published_work_3', $rx_published_work_3 );
+	update_user_meta( $user_id, 'rx_int_question_1', $rx_int_question_1 );
+	update_user_meta( $user_id, 'rx_int_question_2', $rx_int_question_2 );
+	update_user_meta( $user_id, 'rx_int_question_3', $rx_int_question_3 );
+	update_user_meta( $user_id, 'rx_int_question_4', $rx_int_question_4 );
+	update_user_meta( $user_id, 'rx_int_question_5', $rx_int_question_5 );
+	update_user_meta( $user_id, 'rx_int_question_6', $rx_int_question_6 );
+	update_user_meta( $user_id, 'rx_int_question_7', $rx_int_question_7 );
+	update_user_meta( $user_id, 'rx_int_question_8', $rx_int_question_8 );
+	update_user_meta( $user_id, 'rx_int_own_question', $rx_int_own_question );
+	update_user_meta( $user_id, 'rx_int_own_answer', $rx_int_own_answer );
+	
+	
     exit;
 }
 add_action( 'wp_ajax_nopriv_rx_interview_cb', 'rx_modifications_callback' );
@@ -392,24 +431,45 @@ add_action( 'wp_ajax_rx_interview_cb', 'rx_modifications_callback' );
 
 
 
+
+
+
+
+
+
 function load_saved_interview() {
 
-    // $args = array(
-	// 	'post_type' => 'post',
-    //     'post_status' => array('publish'),
-    //     'posts_per_page' => 2,
-    //     'nopaging' => true,
-    //     'order' => 'DESC',
-    //     'orderby' => 'date',
-    //     'cat' => 1,
-	// );
 	$rx_current_user_ID = get_current_user_id();
 	$rx_current_user_meta = get_user_meta( $rx_current_user_ID );
 
 	$rx_first_name = $rx_current_user_meta['rx_first_name'][0];
 	$rx_last_name = $rx_current_user_meta['rx_last_name'][0];
 	$rx_company = $rx_current_user_meta['rx_interview_company'][0];
+	$rx_user_email   = $rx_current_user_meta['rx_user_email'][0]; 
+	$rx_role   = $rx_current_user_meta['rx_role'][0]; 
+	$rx_industry   = $rx_current_user_meta['rx_industry'][0]; 
 
+	$rx_linked_in   = $rx_current_user_meta['rx_linked_in'][0]; 
+	$rx_twitter   = $rx_current_user_meta['rx_twitter'][0]; 
+	$rx_crunchbase   = $rx_current_user_meta['rx_crunchbase'][0]; 
+	$rx_instagram   = $rx_current_user_meta['rx_instagram'][0]; 
+	$rx_wikipedia   = $rx_current_user_meta['rx_wikipedia'][0]; 
+
+	$rx_published_work_1   = $rx_current_user_meta['rx_published_work_1'][0]; 
+	$rx_published_work_2   = $rx_current_user_meta['rx_published_work_2'][0]; 
+	$rx_published_work_3   = $rx_current_user_meta['rx_published_work_3'][0]; 
+
+	$rx_biography   = $rx_current_user_meta['rx_biography'][0]; 
+	$rx_int_question_1   = $rx_current_user_meta['rx_int_question_1'][0]; 
+	$rx_int_question_2   = $rx_current_user_meta['rx_int_question_2'][0]; 
+	$rx_int_question_3   = $rx_current_user_meta['rx_int_question_3'][0]; 
+	$rx_int_question_4   = $rx_current_user_meta['rx_int_question_4'][0]; 
+	$rx_int_question_5   = $rx_current_user_meta['rx_int_question_5'][0]; 
+	$rx_int_question_6   = $rx_current_user_meta['rx_int_question_6'][0]; 
+	$rx_int_question_7   = $rx_current_user_meta['rx_int_question_7'][0]; 
+	$rx_int_question_8   = $rx_current_user_meta['rx_int_question_8'][0]; 
+	$rx_int_question_own_question   = $rx_current_user_meta['rx_int_question_own_question'][0]; 
+	$rx_int_question_own_answer   = $rx_current_user_meta['rx_int_question_own_answer'][0]; 
 
 
 
@@ -418,7 +478,29 @@ function load_saved_interview() {
 	$rx_saved_fields = [
 		"first_name" => $rx_first_name,
 		"last_name" => $rx_last_name,
-		"company" => $rx_company
+		"company" => $rx_company,
+		"rx_user_email" => $rx_user_email,
+		"rx_role" => $rx_role,
+		"rx_industry" => $rx_industry,
+		"rx_linked_in" => $rx_linked_in,
+		"rx_twitter" => $rx_twitter,
+		"rx_crunchbase" => $rx_crunchbase,
+		"rx_instagram" => $rx_instagram,
+		"rx_wikipedia" => $rx_wikipedia,
+		"rx_published_work_1" => $rx_published_work_1,
+		"rx_published_work_2" => $rx_published_work_2,
+		"rx_published_work_3" => $rx_published_work_3,
+		"rx_biography" => $rx_biography,
+		"rx_int_question_1" => $rx_int_question_1,
+		"rx_int_question_2" => $rx_int_question_2,
+		"rx_int_question_3" => $rx_int_question_3,
+		"rx_int_question_4" => $rx_int_question_4,
+		"rx_int_question_5" => $rx_int_question_5,
+		"rx_int_question_6" => $rx_int_question_6,
+		"rx_int_question_7" => $rx_int_question_7,
+		"rx_int_question_8" => $rx_int_question_8,
+		"rx_int_own_question" => $rx_int_own_question,
+		"rx_int_own_answer" => $rx_int_own_answer			
 	];
 
 
