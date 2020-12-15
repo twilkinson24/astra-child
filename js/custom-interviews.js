@@ -23,7 +23,7 @@ if($('.interview-first-name input').length > 0) {
 		intPublishedWork2 = $('.published-work-2 input'),
 		intPublishedWork3 = $('.published-work-3 input'),
 		// Questions
-		rx_biography = $('.biography textarea')
+		intBiography = $('.biography textarea')
 		intQuestion1 = $('.question-1 textarea'),
 		intQuestion2 = $('.question-2 textarea'),
 		intQuestion3 = $('.question-3 textarea'),
@@ -32,22 +32,13 @@ if($('.interview-first-name input').length > 0) {
 		intQuestion6 = $('.question-6 textarea'),
 		intQuestion7 = $('.question-7 textarea'),
 		intQuestion8 = $('.question-8 textarea'),
-		intOwnQuestion = $('.own-question textarea'),
+		intOwnQuestion = $('.own-question input'),
 		intOwnAnswer = $('.answer-own-question textarea')
 
 
-		$(document).on('keyup', () => {
-			console.log(intRole.val())
-		})
 
 
 	// get form data to save
-
-	console.log(intFirstName.val())
-
-	intFirstName.on('keyup', function() {
-		console.log($(this).val())
-	})
 
 
 
@@ -60,8 +51,6 @@ if($('.interview-first-name input').length > 0) {
 
 		saveButton.on('click', function(e){  
 				e.preventDefault() 
-
-				console.log('click')
 			
 			// AJAX
 			$.ajax({
@@ -83,7 +72,7 @@ if($('.interview-first-name input').length > 0) {
 					'rx_published_work_1': intPublishedWork1.val(),
 					'rx_published_work_2': intPublishedWork2.val(),
 					'rx_published_work_3': intPublishedWork3.val(),
-					'rx_biography': rx_biography.val(),
+					'rx_biography': intBiography.val(),
 					'rx_int_question_1': intQuestion1.val(),
 					'rx_int_question_2': intQuestion2.val(),
 					'rx_int_question_3': intQuestion3.val(),

@@ -411,6 +411,7 @@ function rx_modifications_callback() {
 	update_user_meta( $user_id, 'rx_published_work_1', $rx_published_work_1 );
 	update_user_meta( $user_id, 'rx_published_work_2', $rx_published_work_2 );
 	update_user_meta( $user_id, 'rx_published_work_3', $rx_published_work_3 );
+	update_user_meta( $user_id, 'rx_biography', $rx_biography_val );
 	update_user_meta( $user_id, 'rx_int_question_1', $rx_int_question_1 );
 	update_user_meta( $user_id, 'rx_int_question_2', $rx_int_question_2 );
 	update_user_meta( $user_id, 'rx_int_question_3', $rx_int_question_3 );
@@ -468,8 +469,8 @@ function load_saved_interview() {
 	$rx_int_question_6   = $rx_current_user_meta['rx_int_question_6'][0]; 
 	$rx_int_question_7   = $rx_current_user_meta['rx_int_question_7'][0]; 
 	$rx_int_question_8   = $rx_current_user_meta['rx_int_question_8'][0]; 
-	$rx_int_question_own_question   = $rx_current_user_meta['rx_int_question_own_question'][0]; 
-	$rx_int_question_own_answer   = $rx_current_user_meta['rx_int_question_own_answer'][0]; 
+	$rx_int_question_own_question   = $rx_current_user_meta['rx_int_own_question'][0]; 
+	$rx_int_question_own_answer   = $rx_current_user_meta['rx_int_own_answer'][0]; 
 
 
 
@@ -499,8 +500,8 @@ function load_saved_interview() {
 		"rx_int_question_6" => $rx_int_question_6,
 		"rx_int_question_7" => $rx_int_question_7,
 		"rx_int_question_8" => $rx_int_question_8,
-		"rx_int_own_question" => $rx_int_own_question,
-		"rx_int_own_answer" => $rx_int_own_answer			
+		"rx_int_own_question" => $rx_int_question_own_question,
+		"rx_int_question_own_answer" => $rx_int_question_own_answer			
 	];
 
 
@@ -516,3 +517,54 @@ function load_saved_interview() {
 
 add_action( 'wp_ajax_nopriv_rx_interview_load_saved', 'load_saved_interview' );
 add_action( 'wp_ajax_interview_load_saved', 'load_saved_interview' );
+
+
+
+
+
+
+
+// Clear the data
+function rx_modifications_callback() {
+
+    // Ensure we have the data we need to continue
+    if( ! isset( $_POST ) || empty( $_POST ) || ! is_user_logged_in() ) {
+
+        // If we don't - return custom error message and exit
+        header( 'HTTP/1.1 400 Empty POST Values' );
+        echo 'Could Not Verify POST Values.';
+        exit;
+    }
+
+	 $current_user_id        = get_current_user_id();                            // Get our current user ID
+
+
+	update_user_meta( $current_user_id, 'rx_first_name', '' );                // Update our user meta
+	update_user_meta( $current_user_id, 'rx_last_name', '' );                
+	update_user_meta( $current_user_id, 'rx_interview_company', '');                
+	update_user_meta( $current_user_id, 'rx_user_email', '' );
+	update_user_meta( $current_user_id, 'rx_role', '' );
+	update_user_meta( $current_user_id, 'rx_industry', '' );
+	update_user_meta( $current_user_id, 'rx_linked_in', '' );
+	update_user_meta( $current_user_id, 'rx_twitter', '' );
+	update_user_meta( $current_user_id, 'rx_crunchbase', '' );
+	update_user_meta( $current_user_id, 'rx_instagram', '' );
+	update_user_meta( $current_user_id, 'rx_wikipedia', '' );
+	update_user_meta( $current_user_id, 'rx_published_work_1', '' );
+	update_user_meta( $current_user_id, 'rx_published_work_2', '' );
+	update_user_meta( $current_user_id, 'rx_published_work_3', '' );
+	update_user_meta( $current_user_id, 'rx_biography', '' );
+	update_user_meta( $current_user_id, 'rx_int_question_1', '' );
+	update_user_meta( $current_user_id, 'rx_int_question_2', '' );
+	update_user_meta( $current_user_id, 'rx_int_question_3', '' );
+	update_user_meta( $current_user_id, 'rx_int_question_4', '' );
+	update_user_meta( $current_user_id, 'rx_int_question_5', '' );
+	update_user_meta( $current_user_id, 'rx_int_question_6', '' );
+	update_user_meta( $current_user_id, 'rx_int_question_7', '' );
+	update_user_meta( $current_user_id, 'rx_int_question_8', '' );
+	update_user_meta( $current_user_id, 'rx_int_own_question', '' );
+	update_user_meta( $current_user_id, 'rx_int_own_answer', '' );
+	
+	
+    exit;
+}

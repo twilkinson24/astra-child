@@ -26,7 +26,7 @@
 		intQuestion6 = $('.question-6 textarea'),
 		intQuestion7 = $('.question-7 textarea'),
 		intQuestion8 = $('.question-8 textarea'),
-		intOwnQuestion = $('.own-question textarea'),
+		intOwnQuestion = $('.own-question input'),
 		intOwnAnswer = $('.answer-own-question textarea')
 
     if(intFirstName.length > 0) {
@@ -75,6 +75,9 @@
             if(answer.rx_crunchbase) {
                 intCrunchbase.val(answer.rx_crunchbase)
             }
+            if(answer.rx_instagram) {
+                intInstagram.val(answer.rx_instagram)
+            }
             if(answer.rx_wikipedia) {
                 intWikipedia.val(answer.rx_wikipedia)
             }
@@ -90,42 +93,45 @@
             if(answer.rx_biography) {
                 intBiography.val(answer.rx_biography)
             }
-            if(answer.rx_question_r) {
+            if(answer.rx_question_1) {
                 intQuestion1.val(answer.rx_question_1)
             }
-            if(answer.rx_question_r) {
+            if(answer.rx_question_2) {
                 intQuestion2.val(answer.rx_question_2)
             }
-            if(answer.rx_question_r) {
+            if(answer.rx_question_3) {
                 intQuestion3.val(answer.rx_question_3)
             }
-            if(answer.rx_question_r) {
+            if(answer.rx_question_4) {
                 intQuestion4.val(answer.rx_question_4)
             }
-            if(answer.rx_question_r) {
+            if(answer.rx_question_5) {
                 intQuestion5.val(answer.rx_question_5)
             }
-            if(answer.rx_question_r) {
+            if(answer.rx_question_6) {
                 intQuestion6.val(answer.rx_question_6)
             }
-            if(answer.rx_question_r) {
+            if(answer.rx_question_7) {
                 intQuestion7.val(answer.rx_question_7)
             }
-            if(answer.rx_question_r) {
+            if(answer.rx_question_8) {
                 intQuestion8.val(answer.rx_question_8)
             }
-            if(answer.rx_own_questior) {
-                intOwnQuestion.val(answer.rx_own_question)
+            if(answer.rx_int_own_question) {
+                console.log('what')
+                intOwnQuestion.val(answer.rx_int_own_question)
+            } else {
+                console.log('esle')
             }
-            if(answer.rx_own_answer) {
-                intOwnAnswer.val(answer.rx_own_answer)
+            if(answer.rx_int_question_own_answer) {
+                intOwnAnswer.val(answer.rx_int_question_own_answer)
             }
             
            
         
         console.log('done with second, second -answer')           
 
-        
+
         }).fail(function() {
         alert("Error occurred. Please try again.");
         }); 
