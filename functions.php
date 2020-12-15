@@ -525,7 +525,9 @@ add_action( 'wp_ajax_interview_load_saved', 'load_saved_interview' );
 
 
 // Clear the data
-function rx_modifications_callback() {
+add_action('wpcf7_mail_sent','rx_clear_data_after_submission');
+
+function rx_clear_data_after_submission() {
 
     // Ensure we have the data we need to continue
     if( ! isset( $_POST ) || empty( $_POST ) || ! is_user_logged_in() ) {
