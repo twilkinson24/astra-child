@@ -13,6 +13,9 @@ Template: astra
 /* Custom CSS Below */
 
 /* Global */
+body .h4 {
+	font-size: 1.25rem;
+}
 .text-center {
 	text-align: center;
 }

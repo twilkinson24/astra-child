@@ -20,8 +20,22 @@ function child_enqueue_styles() {
 
 	wp_enqueue_style( 'astra-child-theme-css', get_stylesheet_directory_uri() . '/style.css', array('astra-theme-css'), CHILD_THEME_ASTRA_CHILD_VERSION, 'all' );
 	
-    if(is_page_template('how-to-interview.php')) {
+    if(is_page_template('how-to-interview.php') && is_user_logged_in()) {
 		wp_enqueue_script( 'custom-interviews-js', get_stylesheet_directory_uri() . '/js/custom-interviews.js', array('jquery'), '0', true );
+
+		wp_localize_script('custom-interviews-js', 'admin_url', array(
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'home_url' => home_url()
+		  ));
+
+
+		wp_enqueue_script( 'retrieve-interview-js', get_stylesheet_directory_uri() . '/js/get-saved-form.js', array('jquery'), '0', true );
+
+		wp_localize_script('retrieve-interview-js', 'admin_url', array(
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'home_url' => home_url()
+		));
+		
 	}
 
 }
@@ -29,105 +43,28 @@ function child_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
 
 
-
-/* Custom  Below */
-// Change default excerpt
-function rx_new_excerpt_read_more($more) {
-	global $post;
-	return '<a class="rx-read-more" href="'. get_permalink($post->ID) . '">Meet ' . get_the_title($post->ID) . '</a>';
-}
-add_filter('excerpt_more', 'rx_new_excerpt_read_more');
-
-
+/**
+ * Custom Below 
+ */
 
 // Remove default Astra Prev/Next page from single posts
 add_filter( 'astra_single_post_navigation_enabled', '__return_false' );
 
 
 /**
- * Disable Featured image on all post types.
+ * Include required files.
  */
-function rx_featured_image() {
- $post_types = array('post', 'page');
+// Shortcodes
+include_once(get_stylesheet_directory() . '/inc/custom-shortcodes.php');
 
- // bail early if the current post type if not the one we want to customize.
- if ( ! in_array( get_post_type(), $post_types ) ) {
- return;
- }
- 
- // Disable featured image.
- add_filter( 'astra_featured_image_enabled', '__return_false' );
-}
+// Custom theme functions
+include_once(get_stylesheet_directory() . '/inc/theme-functions.php');
 
-add_action( 'wp', 'rx_featured_image' );
 
 
 /*
-* Recent Posts shortcode for sidebar 
-*/
-// Custom Shortcode - RepX
-function repx_recent_posts() {
-
-	$repx_recent_post_args = array(
-		'post_type' => 'post',
-		'post_status' => 'publish',
-		'posts_per_page' => 5,
-		'order' => 'DESC'
-
-	);
-
-	$repx_recent_post_shortcode_query = new WP_Query( $repx_recent_post_args );
-
-	if($repx_recent_post_shortcode_query->have_posts()) {
-		$repx_shortcode_output = '';
-
-		while($repx_recent_post_shortcode_query->have_posts()) : $repx_recent_post_shortcode_query->the_post();
-
-			if(has_post_thumbnail(get_the_id())) {
-				$repx_featured_img_url = get_the_post_thumbnail_url(get_the_id(),'small');
-			} else {
-				$repx_featured_img_url = get_template_directory_uri() . '/img/home-banner.svg';
-			}
-
-			// function to get and trim excerpt
-			$repx_excerpt = get_the_excerpt();
-			$repx_excerpt = preg_replace(" ([.*?])",'',$repx_excerpt);
-			$repx_excerpt = strip_shortcodes($repx_excerpt);
-			$repx_excerpt = strip_tags($repx_excerpt);
-			$repx_excerpt = substr($repx_excerpt, 0, 200);
-			$repx_excerpt = substr($repx_excerpt, 0, strripos($repx_excerpt, " "));
-			$repx_excerpt .= '...';
-
-			/* end variables - time to build shortcode */
-			$repx_shortcode_output .= '<div class="repx-recent-post">';
-
-				$repx_shortcode_output .= '<a href="' . get_the_permalink() . '">';
-					$repx_shortcode_output .= '<h4 class="title">' . get_the_title() . '</h4>';
-				$repx_shortcode_output .= '</a>';
-				$repx_shortcode_output .= '<p class="post-date">' . get_the_date( 'F j, Y' ) . '</p>';
-		
-				$repx_shortcode_output .= '<div class="ft-img-wrap">';
-					$repx_shortcode_output .= '<img src="' . $repx_featured_img_url . '" alt="' . get_the_title() . '">';  
-				$repx_shortcode_output .= '</div>';
-		
-				$repx_shortcode_output .= '<p class="excerpt">' . $repx_excerpt . '</p>';
-				$repx_shortcode_output .= '<p class="read-more"><a class="rx-read-more" href="' . get_the_permalink() . '">' .  get_the_title() . '</a></p>';
-			$repx_shortcode_output .= '</div>';
-
-		endwhile;
-		wp_reset_postdata();  
-
-
-	} else {
-		$repx_shortcode_output = '<p>' . 'No posts were returned. Please remove the shortcode or add a blog post.' . '</p>'; 
-	}
-
-	return $repx_shortcode_output;
-
-}
-add_shortcode('show_5_recent_posts', 'repx_recent_posts');
-
-
+* Everything below this is for the contact form on the "How to Interview" page
+*/ 
 // used for CF7 to interview submission
 function rx_update_post_meta( $post_id, $field_name, $value = '' ) {
     if ( empty( $value ) OR ! $value )
@@ -268,56 +205,56 @@ function save_my_form_data_to_my_cpt($contact_form){
 		
 		if(isset($posted_data['question-1'])){
 			if(strlen($posted_data['question-1']) > 0) {
-				$new_post['post_content'] .= '<h4>Where did the idea for your business come from?</h4>';
+				$new_post['post_content'] .= '<h2 class="h4">Where did the idea for your business come from?</h2>';
 					$new_post['post_content'] .= $posted_data['question-1'];
 			}
 		}
 		if(isset($posted_data['question-2'])){
 			if(strlen($posted_data['question-2']) > 0) {
-				$new_post['post_content'] .= '<h4>How do you typically start your day?</h4>';
+				$new_post['post_content'] .= '<h2 class="h4">How do you typically start your day?</h2>';
 					$new_post['post_content'] .= $posted_data['question-2'];
 			}
 		}
 		if(isset($posted_data['question-3'])){
 			if(strlen($posted_data['question-3']) > 0) {
-				$new_post['post_content'] .= '<h4>What is an interesting thing about you that few people know?</h4>';
+				$new_post['post_content'] .= '<h2 class="h4">What is an interesting thing about you that few people know?</h2>';
 					$new_post['post_content'] .= $posted_data['question-3'];
 			}
 		}
 		
 		if(isset($posted_data['question-4'])){
 			if(strlen($posted_data['question-4']) > 0) {
-				$new_post['post_content'] .= '<h4>What three performance metrics do you pay most attention to?</h4>';
+				$new_post['post_content'] .= '<h2 class="h4">What three performance metrics do you pay most attention to?</h4>';
 					$new_post['post_content'] .= $posted_data['question-4'];
 			}
 		}
 		if(isset($posted_data['question-5'])){
 			if(strlen($posted_data['question-5']) > 0) {
-				$new_post['post_content'] .= '<h4>What business software can you not live without?</h4>';
+				$new_post['post_content'] .= '<h2 class="h4">What business software can you not live without?</h4>';
 					$new_post['post_content'] .= $posted_data['question-5'];
 			}
 		}
 		if(isset($posted_data['question-6'])){
 			if(strlen($posted_data['question-6']) > 0) {
-				$new_post['post_content'] .= "<h4>What is the best advice you've ever been given?</h4>";
+				$new_post['post_content'] .= "<h2 class='h4'>What is the best advice you've ever been given?</h4>";
 					$new_post['post_content'] .= $posted_data['question-6'];
 			}
 		}
 		if(isset($posted_data['question-7'])){
 			if(strlen($posted_data['question-7']) > 0) {
-				$new_post['post_content'] .= "<h4>What is the best book recommendation for young businesspeople?</h4>";
+				$new_post['post_content'] .= "<h2 class='h4'>What is the best book recommendation for young businesspeople?</h4>";
 					$new_post['post_content'] .= $posted_data['question-7'];
 			}
 		}
 		if(isset($posted_data['question-8'])){
 			if(strlen($posted_data['question-8']) > 0) {
-				$new_post['post_content'] .= "<h4>How will your industry change in the next five years?</h4>";
+				$new_post['post_content'] .= "<h2 class='h4'>How will your industry change in the next five years?</h4>";
 					$new_post['post_content'] .= $posted_data['question-8'];
 			}
 		}
 		if(isset($posted_data['own-question'])){
 			if(strlen($posted_data['own-question']) > 0) {
-					$new_post['post_content'] .= '<h4>Custom question: ' . $posted_data['own-question'] . '</h4>';
+					$new_post['post_content'] .= '<h2 class="h4">Custom question: ' . $posted_data['own-question'] . '</h4>';
 			}
 		}
 		if(isset($posted_data['answer-own-question'])){
@@ -416,3 +353,84 @@ function save_my_form_data_to_my_cpt($contact_form){
 }
 
 
+
+
+
+function rx_modifications_callback() {
+
+    // Ensure we have the data we need to continue
+    if( ! isset( $_POST ) || empty( $_POST ) || ! is_user_logged_in() ) {
+
+        // If we don't - return custom error message and exit
+        header( 'HTTP/1.1 400 Empty POST Values' );
+        echo 'Could Not Verify POST Values.';
+        exit;
+    }
+
+	 $user_id        = get_current_user_id();                            // Get our current user ID
+
+
+	 $rx_first_name_val         = sanitize_text_field( $_POST['rx_first_name'] );      
+	 $rx_last_name_val         = sanitize_text_field( $_POST['rx_last_name'] );      
+	 $rx_company_val         = sanitize_text_field( $_POST['rx_interview_company'] );   
+	 $biography_val         = sanitize_text_field( $_POST['rx_biography'] );      // Sanitize our user meta value
+
+
+
+
+	update_user_meta( $user_id, 'rx_first_name', $rx_first_name_val );                // Update our user meta
+	update_user_meta( $user_id, 'rx_last_name', $rx_last_name_val );                
+	update_user_meta( $user_id, 'rx_interview_company', $rx_company_val);                
+	update_user_meta( $user_id, 'biography', $biography_val );                
+
+
+    exit;
+}
+add_action( 'wp_ajax_nopriv_rx_interview_cb', 'rx_modifications_callback' );
+add_action( 'wp_ajax_rx_interview_cb', 'rx_modifications_callback' );
+
+
+
+
+function load_saved_interview() {
+
+    // $args = array(
+	// 	'post_type' => 'post',
+    //     'post_status' => array('publish'),
+    //     'posts_per_page' => 2,
+    //     'nopaging' => true,
+    //     'order' => 'DESC',
+    //     'orderby' => 'date',
+    //     'cat' => 1,
+	// );
+	$rx_current_user_ID = get_current_user_id();
+	$rx_current_user_meta = get_user_meta( $rx_current_user_ID );
+
+	$rx_first_name = $rx_current_user_meta['rx_first_name'][0];
+	$rx_last_name = $rx_current_user_meta['rx_last_name'][0];
+	$rx_company = $rx_current_user_meta['rx_interview_company'][0];
+
+
+
+
+
+
+	$rx_saved_fields = [
+		"first_name" => $rx_first_name,
+		"last_name" => $rx_last_name,
+		"company" => $rx_company
+	];
+
+
+
+    // The Query
+    $ajaxposts = get_posts( $args ); // changed to get_posts from wp_query, because `get_posts` returns an array
+
+    header('Content-type: application/json');
+    echo json_encode($rx_saved_fields);
+    die();
+
+}
+
+add_action( 'wp_ajax_nopriv_rx_interview_load_saved', 'load_saved_interview' );
+add_action( 'wp_ajax_interview_load_saved', 'load_saved_interview' );
