@@ -248,13 +248,4 @@ if($('.interview-first-name input').length > 0) {
 
 
 
-
-
-
-
-
-
-
-
-
 })(jQuery);
