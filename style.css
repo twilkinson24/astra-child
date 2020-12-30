@@ -13,13 +13,43 @@ Template: astra
 /* Custom CSS Below */
 
 /* Global */
+body .h4 {
+	font-size: 1.25rem;
+}
+.text-center {
+	text-align: center;
+}
+.uppercase {
+	text-transform: uppercase;
+}
+.more-interviews {
+	color: #000;
+	font-size: 1.25rem;
+}
 a .entry-title:hover {
 	color: #1e73be;
 	transition: all 200ms ease;
 }
+body .heateorSssEmailBackground {
+	background: #595959;
+}
 
 body .m-0 {
     margin: 0;
+}
+body .p-relative {
+    position: relative;
+}
+/* mobile toggle btn */
+.ast-button-wrap .menu-toggle.main-header-menu-toggle .mobile-menu,
+.ast-button-wrap .menu-toggle .menu-toggle-icon:before {
+    color: #000;
+}
+body blockquote {
+    margin-left: 0;
+}
+.interviewee-title {
+    margin-bottom: 20px;
 }
 /* end Global */
 
@@ -27,18 +57,58 @@ body .m-0 {
 .main-header-bar .main-header-container  {
     position: relative;
 }
-.main-header-bar .main-header-container .site-branding {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.main-header-bar .menu-item a {
-    font-weight: bold;
-}
 .main-header-menu .menu-item:hover > .menu-link,
 .main-header-bar .menu-item:hover a,
 .main-header-bar .menu-item a:hover {
     color: #595959;
+}
+.main-header-menu .current-menu-item > .menu-link {
+    color: #000;
+}
+/* Nav Menu */ 
+.ast-footer-overlay,
+.footer-primary-navigation .menu-link,
+body nav .menu-link {
+	font-family: Helvetica, sans-serif;
+}
+.ast-small-footer-section.ast-small-footer-section-2 {
+	color: #ccc;
+}
+body nav .menu-item.current-menu-item a {
+	font-weight: bold;
+}
+body ul .menu-item {
+	position: relative;
+}
+body ul .menu-item:after {
+	background: #000;
+	content: ' ';
+	display: block;
+	height: 1rem;
+	position: absolute;
+	right: 0;
+	width: 1px;
+	top: 50%;
+	transform: translatey(-50%);
+}
+body footer ul .menu-item:after {
+	background: #fff;
+}
+body footer ul .menu-item:last-child:after,
+body nav ul .menu-item:last-child:after {
+	content: none;
+}
+/* Mobile Nav Menu */
+@media screen and (max-width: 921px) {
+    .ast-flyout-menu-enable.ast-header-break-point .main-header-bar-navigation #site-navigation {
+        background: #000;
+    }
+    .ast-header-break-point .main-header-bar .main-header-bar-navigation .main-header-menu,
+    .ast-flyout-menu-enable.ast-header-break-point .main-header-bar-navigation .close:after,
+    .ast-flyout-menu-enable.ast-header-break-point .main-header-bar-navigation #site-navigation .main-header-menu .menu-link {
+        color: #fff;
+        border-color: #000;
+    }
 }
 /* end Header */
 
@@ -60,29 +130,146 @@ body .m-0 {
     max-width: 700px;
     margin: -65px auto 20px auto;
 }
+@media screen and (max-width: 768px) {
+    .hero-cta-text {
+        font-size: 30px;
+    }
+}
 /* end Hero */
 
 /* Interviews Archive */
+.page-template-homepage #primary,
+.page-template-interviews #primary,
+.page-template-interviews-top-banner #primary {
+	width: 100% !important;
+}
 .archive .posts-wrapper,
+.page-template-homepage .posts-wrapper,
+.page-template-interviews-top-banner .posts-wrapper,
 .page-template-interviews .posts-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 .archive .posts-wrapper article,
+.page-template-homepage .posts-wrapper article,
+.page-template-interviews-top-banner .posts-wrapper article,
 .page-template-interviews .posts-wrapper article {
     width: 50%;
     padding: 60px;
 }
+@media screen and (max-width: 768px) {
+    .archive .posts-wrapper article,
+	.page-template-homepage .posts-wrapper article,
+	.page-template-interviews-top-banner .posts-wrapper article,
+    .page-template-interviews .posts-wrapper article {
+        width: 100%;
+        padding: 30px 10px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .archive .posts-wrapper article,
+	.page-template-homepage .posts-wrapper article,
+	.page-template-interviews-top-banner .posts-wrapper article,
+    .page-template-interviews .posts-wrapper article {
+        padding: 30px 0;
+    }
+}
+.single-post .ft-img-wrap img,
+.single-post .fw-ft-img,
+.page-template-homepage .fw-ft-img,
+.page-template-top-banner .fw-ft-img,
+.page-template-how-to-interview .fw-ft-img,
+.page-template-interviews-top-banner .fw-ft-img {
+	width: 100%;
+	max-width: 1600px;
+	margin: 0 auto;
+	position: relative;
+}
+.page-template-how-to-interview .fw-ft-img .overlay,
+.page-template-homepage .fw-ft-img .overlay,
+.page-template-top-banner .fw-ft-img .overlay,
+.page-template-interviews-top-banner .fw-ft-img .overlay {
+	color: #fff;
+	background-color: rgba(0,0,0,.2);
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.page-template-how-to-interview .fw-ft-img .overlay .title-wrap,
+.page-template-homepage .fw-ft-img .overlay .title-wrap,
+.page-template-top-banner .fw-ft-img .overlay .title-wrap,
+.page-template-interviews-top-banner .fw-ft-img .overlay .title-wrap {
+	width: auto;
+	height: auto;
+}
+.page-template-how-to-interview .fw-ft-img .overlay h1,
+.page-template-homepage .fw-ft-img .overlay h1,
+.page-template-top-banner .fw-ft-img .overlay h1,
+.page-template-interviews-top-banner .fw-ft-img .overlay h1 {
+	color: #fff;
+}
+.single-post .ft-img-wrap img,
+.page-template-homepage .fw-ft-img img,
+.page-template-top-banner .fw-ft-img img,
+.page-template-how-to-interview .fw-ft-img img,
+.page-template-interviews-top-banner .fw-ft-img img {
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+	object-position: center;
+}
+@media screen and (min-width: 1600px) {
+	.single-post .ft-img-wrap img,
+	.page-template-how-to-interview .fw-ft-img img,
+	.page-template-homepage .fw-ft-img img,
+	.page-template-top-banner .fw-ft-img img,
+	.page-template-interviews-top-banner .fw-ft-img img {
+		height: 600px;
+	}
+}
+@media screen and (max-width: 982px) {
+	.single-post .ft-img-wrap img,
+	.page-template-top-banner .fw-ft-img img,
+	.page-template-how-to-interview .fw-ft-img img,
+	.page-template-interviews-top-banner .fw-ft-img img {
+		height: 450px;
+	}
+}
+@media screen and (max-width: 500px) {
+	.single-post .ft-img-wrap img,
+	.page-template-top-banner .fw-ft-img img,
+	.page-template-homepage .fw-ft-img img,
+	.page-template-how-to-interview .fw-ft-img img,
+	.page-template-interviews-top-banner .fw-ft-img img {
+		height: 350px;
+	}
+}
+.page.page-template-homepage article .entry-title,
+.page-template-how-to-interview article .entry-title,
+.page.page-template-interviews-top-banner article .entry-title,
+.page.page-template-interviews article .entry-title {
+    font-size: 30px;
+	font-weight: 700;	
+}
+/*
+.page-template-interviews-top-banner .entry-title,
 .archive .posts-wrapper .entry-title,
 .page-template-interviews .entry-title {
 	font-weight: 700;	
 }
+*/
 .rx-post-date {
 	color: #595959;
     font-size: .9rem;
     margin: 0;
 }
+
 .rx-ft-img-wrap {
     display: block;
     margin: 2.125rem 0;
@@ -91,12 +278,11 @@ body .m-0 {
     margin-bottom: 2.125rem;
 }
 .rx-read-more {
-    background: #000;
+    background: #272f63;
     color: #fff;
     display: inline-block;
     font-size: 0.875rem;
     padding: 10px 20px;
-    text-transform: uppercase;
     transition: all 100ms ease-in-out;
 }
 .rx-read-more:active,
@@ -145,12 +331,25 @@ body .m-0 {
     font-size: 50px;
     margin-bottom: 20px;
 }
+.ft-img-wrap {
+	text-align: center;
+}
 
 
 /* Archive Page */
 .archive .ast-archive-description {
     border: none;
     padding-left: 60px;
+}
+@media screen and (max-width: 768px) {
+    .archive .ast-archive-description {
+        padding-left: 10px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .archive .ast-archive-description {
+        padding-left: 0;
+    }
 }
 .archive .page-title {
     color: #000;
@@ -230,7 +429,7 @@ body .m-0 {
     background-size: 15px 15px;
 }
 .single footer.article-footer {
-    padding-left: 110px;
+    padding-left: 60px;
 }
 .single footer.article-footer p {
     line-height: 1.5;
@@ -243,12 +442,301 @@ body .m-0 {
 
 body.ast-separate-container .ast-article-post, 
 body.ast-separate-container .ast-article-single {
-    padding: 40px 60px 60px 60px;
+    padding: 0px 60px 60px 60px;
 }
+@media screen and (min-width: 922px) {
 .ast-right-sidebar #primary {
     width: 65%;
 }
+.ast-container.custom-sidebar #primary {
+	width: 65%;
+}
+.single-post #secondary,
 .ast-right-sidebar #secondary {
     padding-left: 0;
     width: 35%; 
 }
+}
+@media screen and (max-width: 768px) {
+    body.ast-separate-container .ast-article-post, 
+    body.ast-separate-container .ast-article-single {
+        padding: 40px 30px 60px 30px;
+    }
+    body header .main-header-bar .ast-container {
+        padding: 0 10px;
+    }
+    .ast-separate-container.ast-right-sidebar #primary,
+    .ast-separate-container.ast-right-sidebar #secondary {
+        padding-left: 0;
+        width: 100%; 
+    }
+    .single footer.article-footer {
+        padding-left: 30px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .ast-separate-container #content .ast-container,
+    .single.ast-separate-container #content .ast-container {
+        padding: 0 20px;
+    }
+    body.ast-separate-container .ast-article-post, 
+    body.ast-separate-container .ast-article-single {
+        padding: 40px 0 60px 0;
+    }
+    .single footer.article-footer {
+        padding-left: 0;
+    }
+    body header .main-header-bar .ast-container {
+        padding: 0;
+    }
+}
+@media screen and (max-width: 370px) {
+    .main-header-bar .main-header-container .site-branding {
+        left: 55%;
+    }
+}
+.single-post .entry-meta {
+	display: none;
+}
+.single.single-post .entry-header {
+	margin-bottom: 0;
+}
+.heateor_sss_sharing_container {
+	margin-bottom: 30px;
+}
+.heateor_sss_sharing_container .heateor_sss_sharing_title {
+	font-size: 12px;
+	font-weight: normal !important;
+}
+
+.single.single-post .sidebar-main.custom .widget {
+	background: transparent;
+	margin: 0;
+	padding-bottom: 0;
+}
+.single.single-post .sidebar-main.custom .widget .widget-title {
+	margin-bottom: 15px;
+}
+/* Single Page */
+.home.page.ast-single-post.ast-no-sidebar .site-content > .ast-container,
+.page.page-template-interviews-top-banner.ast-single-post.ast-no-sidebar .site-content > .ast-container,
+.page.page-template-interviews.ast-single-post.ast-no-sidebar .site-content > .ast-container {
+    max-width: 1140px;
+} 
+.page.ast-single-post.ast-no-sidebar .site-content > .ast-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+.page.ast-single-post.ast-no-sidebar .site-content > .ast-container .post-thumb-img-content.post-thumb {
+    margin-bottom: 50px;
+}
+@media screen and (min-width: 927px) {
+    .page.ast-single-post.ast-no-sidebar .site-content > .ast-container .post-thumb-img-content.post-thumb {
+        width: 850px;
+        transform: translateX(-95px);
+    }
+}
+@media screen and (min-width: 1100px) {
+    .page.ast-single-post.ast-no-sidebar .site-content > .ast-container .post-thumb-img-content.post-thumb {
+        width: 1000px;
+        transform: translateX(-170px);
+    }
+}
+.page.ast-single-post.ast-no-sidebar #primary article.ast-article-single {
+    padding: 40px 0 60px 0;
+}
+.ast-right-sidebar #secondary,
+.ast-right-sidebar #primary {
+	border: none !important;
+}
+
+.page.ast-single-post .entry-title {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.sidebar-main h3.recent-interviews-title {
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+/* Shortcode */
+.repx-recent-post {
+	font-size: .9rem;
+	margin-bottom: 50px;
+}
+.repx-recent-post .post-date {
+	color: #595959;
+    font-size: .8rem;
+   margin-bottom: 20px;
+}
+.repx-recent-post .rx-read-more {
+	display: block;
+	text-align: center;
+}
+.repx-recent-post .ft-img-wrap {
+	margin-bottom: 20px;
+}
+@media screen and (max-width: 922px) {
+	.repx-recent-post {
+		max-width: 400px;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.repx-recent-post .rx-read-more {
+		display: inline-block;
+	}
+}
+
+.page-template-interviews nav.pagination,
+.page-template-interviews-top-banner nav.pagination {
+	display: flex;
+	justify-content: center;
+}
+.page-template-interviews .prev.page-numbers,
+.page-template-interviews-top-banner .prev.page-numbers,
+.page-template-interviews .next.page-numbers,
+.page-template-interviews-top-banner .next.page-numbers {
+	display: none;
+}
+.page-template-interviews .page-numbers,
+.page-template-interviews-top-banner .page-numbers {
+	background: #ccc;
+	padding: 3px 8px;
+	margin-right: 5px;
+}
+
+/* How to Interview Page */
+#saved-notification {
+    background: #eee;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 300px;
+    height: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+}
+#saved-notification.active {
+    display: block !important;
+}
+#saved-notification .p-relative {
+    padding: 50px 30px; 
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#saved-notification .close-notification-btn {
+    display: block;
+    padding:0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+}
+#saved-notification .close-notification-btn:after {
+    content: 'x';
+    color: #fff;
+    font-size: 20px; 
+}
+#saved-notification p {
+    margin: 0;
+}
+
+/* How to Interview Form */
+#wpcf7-f162-p17-o1 {
+	max-width: 450px;
+}
+.wpcf7-form-control.wpcf7-text,
+input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required, input.wpcf7-form-control.wpcf7-text.wpcf7-url.wpcf7-validates-as-url, select.wpcf7-form-control.wpcf7-select, textarea.wpcf7-form-control.wpcf7-textarea, input.wpcf7-form-control.wpcf7-file, input.wpcf7-form-control.wpcf7-submit{
+	color: #000;
+	border-radius: 10px;
+	padding: 0.50em;
+	border: 3px solid #000;
+	background: #fff;	
+}
+
+input.wpcf7-form-control.wpcf7-file {
+	background: #6FB2DF;
+	margin-bottom: 10px;
+	
+}
+
+.clear-form input {
+	background: #fff;
+	color: #21508D;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.clear-form input:hover {
+	background-color: lightgray;
+	color: #fff;
+ 	border-radius: 10px;
+}
+.interview-form-buttons {
+	display: flex;
+	justify-content: space-between;
+}
+.interview-form-buttons input.wpcf7-form-control.wpcf7-submit,
+.interview-form-buttons input,
+#save-progress-btn,
+.interview-form-buttons button {
+	display: inline-block;
+	border: 3px solid #000;
+	border-radius: 8px;
+	min-width: 140px;
+	font-size: .9rem;
+	padding: 5px 10px;
+}
+.interview-form-buttons input.wpcf7-form-control.wpcf7-submit:hover,
+.interview-form-buttons input:hover,
+#save-progress-btn:hover,
+.interview-form-buttons button:hover {
+	border-color: rgba(0,0,0,.5);
+	transition: all 100ms ease-out;
+}
+.interview-form-buttons input.wpcf7-form-control.wpcf7-submit:active,
+.interview-form-buttons input:active,
+.interview-form-buttons button:active {
+	transform: scale(.99);
+	border-color: #000;
+}
+
+
+.interview-form-buttons input[type="reset"],
+#save-progress-btn:focus,
+input:focus.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required, input:focus.wpcf7-form-control.wpcf7-text.wpcf7-url.wpcf7-validates-as-url, textarea:focus.wpcf7-form-control.wpcf7-textarea, select:focus.wpcf7-form-control.wpcf7-select, input:focus.wpcf7-form-control.wpcf7-file {
+	border-color: rgba(0,0,0,.5);
+}
+.interview-form-buttons input[type="reset"] {
+	background: transparent;
+	border: none;
+	color: #1e73be;
+	min-width: 115px;
+	max-width: 130px;
+	padding: 5px;
+}
+#save-progress-btn {
+	color: #000;
+	background: #D99C4C;
+}
+input.wpcf7-form-control.wpcf7-submit {
+	background: #88C76E;	
+}
+
+
+/* List Styles */
+ol,ul {
+	margin-left: 20px;
+	margin-right: 0;
+}
+
+ol li::marker,ul li::marker {
+	color: #cc3333;
+}
+
