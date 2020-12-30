@@ -140,7 +140,7 @@ if($('.interview-first-name input').length > 0) {
                 action: 'interview_load_saved',
             },
             success: function( result ) {
-                console.log( result );
+                console.log( 'success getting saved data' );
             }
         }).done(function(answer) {
             console.log('answer')
@@ -211,25 +211,20 @@ if($('.interview-first-name input').length > 0) {
                 intQuestion6.val(answer.rx_int_question_6)
             }
             if(answer.rx_int_question_7) {
-                intQuestion7.val(answer.rx_question_7)
+                intQuestion7.val(answer.rx_int_question_7)
             }
             if(answer.rx_int_question_8) {
-                intQuestion8.val(answer.rx_question_8)
+                intQuestion8.val(answer.rx_int_question_8)
+            } else {
+                console.log('nahh')
             }
             if(answer.rx_int_own_question) {
-                console.log('what')
                 intOwnQuestion.val(answer.rx_int_own_question)
-            } else {
-                console.log('esle')
-            }
+            } 
             if(answer.rx_int_question_own_answer) {
                 intOwnAnswer.val(answer.rx_int_question_own_answer)
             }
             
-           
-        
-        console.log('done with second, second -answer')           
-
 
         }).fail(function() {
         alert("Error occurred. Please try again.");

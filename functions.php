@@ -293,9 +293,7 @@ function save_my_form_data_to_my_cpt($contact_form){
 				rx_create_attachment($the_file, $post_id);
 			 }
 
-			
-			
-			if(strlen($posted_data['linkedin-url']) > 0 || strlen($posted_data['twitter-url']) > 0 || strlen($posted_data['crunchbase-url']) > 0 || strlen($posted_data['instagram-url']) > 0 || strlen($posted_data['wikipedia-url']) > 0)  {
+			 if(strlen($posted_data['linkedin-url']) > 0 || strlen($posted_data['twitter-url']) > 0 || strlen($posted_data['crunchbase-url']) > 0 || strlen($posted_data['instagram-url']) > 0 || strlen($posted_data['wikipedia-url']) > 0)  {
 
 				
 				$contact_interviewee_text .= '<h3 class="widget-title">Contact ' . $posted_data['interview-first-name'] . ' ' . $posted_data['interview-last-name'] . '</h3>';
@@ -343,7 +341,6 @@ function save_my_form_data_to_my_cpt($contact_form){
 					// Add ACF Field data
 					rx_update_post_meta($post_id, 'rx_published_works', $interviewee_published_works_text);
 				}
-			
 
            // end Everything worked, you can stop here or do whatever
         } else {
@@ -474,8 +471,6 @@ function load_saved_interview() {
 
 
 
-
-
 	$rx_saved_fields = [
 		"first_name" => $rx_first_name,
 		"last_name" => $rx_last_name,
@@ -570,3 +565,55 @@ add_action( 'wp_ajax_interview_load_saved', 'load_saved_interview' );
 	
 //     exit;
 // }
+
+
+
+
+
+/*** Create Schema Data ***/
+function rx_insert_person_schema() {
+	global $post;
+
+    if ( is_singular( 'post' ) ) {
+
+		// $rx_the_post = get_post($post);
+		// $rx_metadescription = $post->post_excerpt; 
+
+  // var_dump($post);
+
+		$rx_post_url = get_the_permalink($post->ID);
+		$rx_post_ft_img = get_the_post_thumbnail_url($post->ID);
+		
+		$rx_person_schema = array(
+			// Tell search engines that this is structured data
+			'@context'  => "http://schema.org",
+			// Tell search engines the content type it is looking at 
+			'@type'     => "Person",
+			// Provide search engines with the site name and address 
+			'name'      => $post->post_title,
+			'url'       => $rx_post_url,
+			'image'     => $rx_post_ft_img,
+			"sameAs"    => [
+				"https://www.linkedin.com/kendrickcampbellos",
+				"https://twitter.com/kendrick",
+				"https://www.instagram.com/kendrick/",
+				"http://www.business.com",
+				"http://www.articles.com"
+			  ],
+			  "jobTitle"	=> "Goldfish Ping Pong Influencer",
+			  "worksFor" 	=> [
+				"@type"		=> "Organization",
+				"name"		=> "Acme Corporation"
+			  ]  
+		  );
+		
+
+		  
+		
+		  echo '<meta name="crazy_meta_test" content="' . $rx_post_ft_img . '" />';
+	}
+}
+add_action('wp_head', 'rx_insert_person_schema');
+
+
+
