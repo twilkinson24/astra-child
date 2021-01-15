@@ -23,3 +23,20 @@ function rx_featured_image() {
    }
    
    add_action( 'wp', 'rx_featured_image' );
+
+
+
+
+
+   ///* I was told to remove sign in/sign out link from menu */
+function add_account_options_to_menu($items, $menu) {
+	if($menu->menu_id == 'primary-menu') {
+		if(is_user_logged_in()) {
+			$items .= "<li class='menu-item'><a class='menu-link' href='".wp_logout_url($_SERVER['REQUEST_URI'])."'>Sign Out</a></li>";
+		} else { // not logged in
+			$items .= "<li class='menu-item'><a class='menu-link' href='". '/interviews/login' ."'>Sign In</a></li>";
+		}
+	}
+	return $items;
+}
+add_filter('wp_nav_menu_items', 'add_account_options_to_menu', 10, 2);

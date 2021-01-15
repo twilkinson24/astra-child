@@ -236,6 +236,29 @@ if($('.interview-first-name input').length > 0) {
 
 
 
+    var conditionalQuestions = $('.conditional-questions')
+
+    // Conditionally hide and show questions
+    intRole.on('change', function() {
+        if(intRole.val() === 'Manager') {
+            conditionalQuestions.hide()
+            $('#role-questions-manager').fadeIn();
+        }
+        if(intRole.val() === 'Entrepreneur') {
+            conditionalQuestions.hide()
+            $('#role-questions-entrepreneur').fadeIn();
+        }
+        if(intRole.val() === 'Consultant') {
+            conditionalQuestions.hide()
+            $('#role-questions-consultant').fadeIn();
+        }
+    })
+
+
+
+
+
+
 } // end if .interview-first-name
 
 

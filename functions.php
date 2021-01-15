@@ -189,7 +189,6 @@ function save_my_form_data_to_my_cpt($contact_form){
     }
     $new_post['post_type'] = 'post'; //insert here your CPT
 	
-
 	
 	if(isset($posted_data['interview-first-name'])){
         
@@ -292,6 +291,16 @@ function save_my_form_data_to_my_cpt($contact_form){
 
 				rx_create_attachment($the_file, $post_id);
 			 }
+
+			 if(isset($posted_data['interview-company-name'])) {
+				rx_update_post_meta($post_id, 'rx_interviewee_company', $contact_interviewee_text);
+			 }
+
+			 if(isset($posted_data['describe-role'])) {
+				rx_update_post_meta($post_id, 'rx_interviewee_position', $posted_data['describe-role']);
+			 }
+
+			 
 
 			 if(strlen($posted_data['linkedin-url']) > 0 || strlen($posted_data['twitter-url']) > 0 || strlen($posted_data['crunchbase-url']) > 0 || strlen($posted_data['instagram-url']) > 0 || strlen($posted_data['wikipedia-url']) > 0)  {
 
@@ -583,6 +592,26 @@ function rx_insert_person_schema() {
 
 		$rx_post_url = get_the_permalink($post->ID);
 		$rx_post_ft_img = get_the_post_thumbnail_url($post->ID);
+
+		if(get_field('rx_contact_interviewee')) {
+			$rx_interview_social_links = get_field('rx_contact_interviewee');
+			preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $rx_interview_social_links, $rx_extracted_social_links);
+		} 
+
+		if(get_field('rx_interviewee_company')) {
+			$rx_int_company = get_field('rx_interviewee_company');
+		} else {
+			$rx_int_company = 'Unspecified';
+		}
+
+
+		if(get_field('rx_interviewee_position')) {
+			$rx_int_position = get_field('rx_interviewee_position');
+		} else {
+			$rx_int_position = 'Unspecified';
+		}
+
+
 		
 		$rx_person_schema = array(
 			// Tell search engines that this is structured data
@@ -593,24 +622,18 @@ function rx_insert_person_schema() {
 			'name'      => $post->post_title,
 			'url'       => $rx_post_url,
 			'image'     => $rx_post_ft_img,
-			"sameAs"    => [
-				"https://www.linkedin.com/kendrickcampbellos",
-				"https://twitter.com/kendrick",
-				"https://www.instagram.com/kendrick/",
-				"http://www.business.com",
-				"http://www.articles.com"
-			  ],
-			  "jobTitle"	=> "Goldfish Ping Pong Influencer",
-			  "worksFor" 	=> [
-				"@type"		=> "Organization",
-				"name"		=> "Acme Corporation"
-			  ]  
+			"sameAs"    => $rx_extracted_social_links[0],
+			"jobTitle"	=> $rx_int_position,
+			"worksFor" 	=> [
+					"@type"		=> "Organization",
+					"name"		=> $rx_int_company
+				]  
 		  );
 		
-
-		  
+		  $json_schema = json_encode($rx_person_schema);
+		  $json_schema_clean = str_replace('u00a0', '', str_replace('\\', '', $json_schema));
 		
-		  echo '<meta name="crazy_meta_test" content="' . $rx_post_ft_img . '" />';
+		  echo '<script type="application/ld+json">' . $json_schema_clean . '</script>';
 	}
 }
 add_action('wp_head', 'rx_insert_person_schema');

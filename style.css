@@ -729,6 +729,16 @@ input.wpcf7-form-control.wpcf7-submit {
 	background: #88C76E;	
 }
 
+/* hidden questions */
+#role-questions-entrepreneur {
+    display: block;
+}
+.conditional-quesitons,
+#role-questions-consultant,
+#role-questions-manager {
+    display: none;
+}
+
 
 /* List Styles */
 ol,ul {
